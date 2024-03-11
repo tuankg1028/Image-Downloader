@@ -39,7 +39,7 @@ def my_print(msg, quiet=False):
 
 
 def google_gen_query_url(keywords, face_only=False, safe_mode=False, image_type=None, color=None):
-    base_url = "https://www.google.com/search?tbm=isch&hl=en"
+    base_url = "https://www.google.com/search?tbs=isz:l&tbm=isch&hl=en"
     keywords_str = "&q=" + quote(keywords)
     query_url = base_url + keywords_str
     
