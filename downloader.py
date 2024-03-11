@@ -44,7 +44,7 @@ def download_image(image_url, dst_dir, file_name, timeout=20, proxy_type=None, p
             response.close()
             file_type = imghdr.what(file_path)
             # if file_type is not None:
-            if file_type in ["jpg", "jpeg", "png", "bmp", "webp"]:
+            if file_type in ["jpg", "jpeg", "png", "webp"]:
                 phash = imagehash.phash(Image.open(file_path))
 
                 new_file_name = "{}_{}.{}".format(file_name, str(phash), file_type)
