@@ -11,6 +11,8 @@ import os
 import concurrent.futures
 import requests
 import socket
+import imagehash
+from PIL import Image
 
 headers = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
@@ -43,9 +45,12 @@ def download_image(image_url, dst_dir, file_name, timeout=20, proxy_type=None, p
             file_type = imghdr.what(file_path)
             # if file_type is not None:
             if file_type in ["jpg", "jpeg", "png", "bmp", "webp"]:
-                new_file_name = "{}.{}".format(file_name, file_type)
+                phash = imagehash.phash(Image.open(file_path))
+
+                new_file_name = "{}_{}.{}".format(file_name, str(phash), file_type)
                 new_file_path = os.path.join(dst_dir, new_file_name)
                 shutil.move(file_path, new_file_path)
+                
                 print("## OK:  {}  {}".format(new_file_name, image_url))
             else:
                 os.remove(file_path)
