@@ -38,6 +38,9 @@ def main(argv):
     # type is not supported for Baidu
     parser.add_argument("--type", "-ty", type=str, default=None,
                         help="What kinds of images to download.", choices=["clipart", "linedrawing", "photograph"])
+    
+    parser.add_argument("--size", "-s", type=str, default=None,
+                        help="What kinds of size to download.", choices=["m", "l"])
     # Bing: color for colored images, bw for black&white images, other color contains Red, orange, yellow, green
     # Teal, Blue, Purple, Pink, Brown, Black, Gray, White
     # Baidu: white, bw, black, pink, blue, red, yellow, purple, green, teal, orange, brown
@@ -64,7 +67,7 @@ def main(argv):
                                             engine=args.engine, max_number=args.max_number,
                                             face_only=args.face_only, safe_mode=args.safe_mode,
                                             proxy_type=proxy_type, proxy=proxy,
-                                            browser=args.driver, image_type=args.type, color=args.color)
+                                            browser=args.driver, image_type=args.type, size=args.size, color=args.color)
     downloader.download_images(image_urls=crawled_urls, dst_dir=args.output,
                                concurrency=args.num_threads, timeout=args.timeout,
                                proxy_type=proxy_type, proxy=proxy,

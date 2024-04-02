@@ -38,8 +38,8 @@ def my_print(msg, quiet=False):
         print(msg)
 
 
-def google_gen_query_url(keywords, face_only=False, safe_mode=False, image_type=None, color=None):
-    base_url = "https://www.google.com/search?tbs=isz:l&tbm=isch&hl=en"
+def google_gen_query_url(keywords, face_only=False, safe_mode=False, image_type=None, size=None, color=None):
+    base_url = "https://www.google.com/search?tbm=isch&hl=en"
     keywords_str = "&q=" + quote(keywords)
     query_url = base_url + keywords_str
     
@@ -49,6 +49,9 @@ def google_gen_query_url(keywords, face_only=False, safe_mode=False, image_type=
         query_url += "&safe=off"
     
     filter_url = "&tbs="
+
+    if size is not None:
+        filter_url += "isz:" + size
 
     if color is not None:
         if color == "bw":
@@ -65,6 +68,8 @@ def google_gen_query_url(keywords, face_only=False, safe_mode=False, image_type=
         filter_url += "itp:face"
 
     query_url += filter_url
+
+    print(1, query_url)
     return query_url
 
 
@@ -310,7 +315,7 @@ def baidu_get_image_url_using_api(keywords, max_number=10000, face_only=False,
 
 def crawl_image_urls(keywords, engine="Google", max_number=10000,
                      face_only=False, safe_mode=False, proxy=None, 
-                     proxy_type="http", quiet=False, browser="chrome_headless", image_type=None, color=None):
+                     proxy_type="http", quiet=False, browser="chrome_headless", image_type=None, size=None, color=None):
     """
     Scrape image urls of keywords from Google Image Search
     :param keywords: keywords you want to search
@@ -335,7 +340,7 @@ def crawl_image_urls(keywords, engine="Google", max_number=10000,
     my_print("Safe Mode:  {}".format(str(safe_mode)), quiet)
 
     if engine == "Google":
-        query_url = google_gen_query_url(keywords, face_only, safe_mode, image_type, color)
+        query_url = google_gen_query_url(keywords, face_only, safe_mode, image_type, size, color)
     elif engine == "Bing":
         query_url = bing_gen_query_url(keywords, face_only, safe_mode, image_type, color)
     elif engine == "Baidu":
