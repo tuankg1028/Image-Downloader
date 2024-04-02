@@ -78,7 +78,7 @@ def google_image_url_from_webpage(driver, max_number, quiet=False):
     thumb_elements = []
     while True:
         try:
-            thumb_elements = driver.find_elements(By.CLASS_NAME, "rg_i")
+            thumb_elements = driver.find_elements(By.CLASS_NAME, "ivg-i")
             my_print("Find {} images.".format(len(thumb_elements)), quiet)
             if len(thumb_elements) >= max_number:
                 break
